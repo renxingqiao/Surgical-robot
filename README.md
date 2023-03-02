@@ -23,8 +23,9 @@
 
 
 
-通过不同分割算法提取头部主干点云特征
+通过不同分割算法提取头部主干点云特征（下图效果更佳）
 
-![Screenshot from 2022-05-20 13-59-45](https://user-images.githubusercontent.com/88017321/222360535-f4d959c8-7ebd-448e-a138-7661108a69ad.png)
+![Screenshot from 2023-03-02 15-30-34](https://user-images.githubusercontent.com/88017321/222361029-95d35dbd-1bb5-450e-a9f0-9fee160c9135.png)
+
 ![Screenshot from 2023-03-02 15-31-01](https://user-images.githubusercontent.com/88017321/222360896-8b896e54-2289-46d0-bca4-30f9d93ddb1d.png)
 

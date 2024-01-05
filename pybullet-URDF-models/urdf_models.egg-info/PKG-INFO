@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: urdf-models
+Version: 0.1
+Summary: A simple python module for convenient URDF model loading
+Home-page: https://github.com/ChenEating716/pybullet-URDF-models
+Author: Yiting CHEN
+Author-email: chenyiting716@gmail.com
+License: MIT
+Keywords: pybullet urdf models
+Requires-Python: >=3
+License-File: LICENSE

@@ -5,7 +5,7 @@ import time
 
 def get_detector():
     detector = dlib.get_frontal_face_detector()  
-    predictor = dlib.shape_predictor('/home/fan/Surgical-robot/utils/shape_predictor_68_face_landmarks.dat')  
+    predictor = dlib.shape_predictor('/home/caoyicong/workspace/Surgical-robot/utils/shape_predictor_68_face_landmarks.dat')  
     return detector, predictor
 # a function to detect the face
 def face_detect_from_img(img_path):
@@ -44,7 +44,8 @@ def face_detect_from_img(img_path):
 
 def face_detect_from_camera_pc():
 
-    capture = cv2.VideoCapture(0)
+    capture = cv2.VideoCapture(2)
+    # capture = cv2.VideoCapture(0)
 
     while(True):
         ret, frame = capture.read()
@@ -65,7 +66,7 @@ if __name__=='__main__':
     detector, predictor = get_detector()
 
     # 利用单张图片预测
-    img_path = "/home/fan/Surgical-robot/paper_pictures/face/data_3.png.png"
+    #img_path = "/home/fan/Surgical-robot/paper_pictures/face/data_3.png.png"
     # face_detect_from_img(img_path)
     # img = cv2.imread("/home/fan/face68/data_image/out/2022_08_16_15_47_31/color/2.png")
     

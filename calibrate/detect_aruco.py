@@ -3,85 +3,27 @@ import numpy as np
 import time
 import cv2
 import cv2.aruco as aruco
+from detect_single_aruco import detect_single_frame
 
-
-#mtx =
-# [[1.22069150e+03 0.00000000e+00 6.61198100e+02]
-# [0.00000000e+00 1.17618858e+03 2.81004495e+02]
-#0    0    1
-
+#相机内参矩阵
 mtx = np.array([
         [1220.69,       0, 661.20],
         [      0, 1176.19, 281.00],
         [      0,       0,      1],
         ])
 
-
-#dist= [[-4.76531264e-02  8.98268556e-02  8.77978795e-04  1.08441766e-02  9.03702693e-01]]
 dist = np.array( [-4.76531264e-02, 8.98268556e-02, 8.77978795e-04, 1.08441766e-02, 9.03702693e-01] )
 
 
+if __name__ == '__main__':
 
-cap = cv2.VideoCapture(2)
-font = cv2.FONT_HERSHEY_SIMPLEX #font for displaying text (below)
+    cap = cv2.VideoCapture(4)
 
-#num = 0
-while True:
-    ret, frame = cap.read()
-    # operations on the frame come here
+    #num = 0
+    while True:
+        ret, frame = cap.read()
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
-    parameters =  aruco.DetectorParameters_create()
-
-    '''
-    detectMarkers(...)
-        detectMarkers(image, dictionary[, corners[, ids[, parameters[, rejectedI
-        mgPoints]]]]) -> corners, ids, rejectedImgPoints
-    '''
-
-    #lists of ids and the corners beloning to each id
-    corners, ids, rejectedImgPoints = aruco.detectMarkers(gray,
-                                                          aruco_dict,
-                                                          parameters=parameters)
-
-#    if ids != None:
-    if ids is not None:
-
-        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.05, mtx, dist)
-        # Estimate pose of each marker and return the values rvet and tvec---different
-        # from camera coeficcients
-        (rvec-tvec).any() # get rid of that nasty numpy value array error
-
-#        aruco.drawAxis(frame, mtx, dist, rvec, tvec, 0.1) #Draw Axis
-#        aruco.drawDetectedMarkers(frame, corners) #Draw A square around the markers
-
-        for i in range(rvec.shape[0]):
-            aruco.drawAxis(frame, mtx, dist, rvec[i, :, :], tvec[i, :, :], 0.03)
-            aruco.drawDetectedMarkers(frame, corners)
-       
-        cv2.putText(frame, "Id: " + str(ids), (0,40), font, 0.5, (0, 0, 255),1,cv2.LINE_AA)
-        cv2.putText(frame, "rvec: " + str(rvec[i, :, :]), (0, 60), font, 0.5, (0, 255, 0), 2, cv2.LINE_AA)
-        cv2.putText(frame, "tvec: " + str(tvec[i, :, :]), (0,80), font, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
-
-
-    else:
-        ##### DRAW "NO IDS" #####
-        cv2.putText(frame, "No Ids", (0,64), font, 1, (0,255,0),2,cv2.LINE_AA)
-
-    # Display the resulting frame
-    cv2.imshow("frame",frame)
-
-    key = cv2.waitKey(1)
-
-    if key == 27:         
-        print('esc break...')
-        cap.release()
-        cv2.destroyAllWindows()
-        break
-
-    if key == ord(' '):  
-#        num = num + 1
-#        filename = "frames_%s.jpg" % num  
-        filename = str(time.time())[:10] + ".jpg"
-        cv2.imwrite(filename, frame)
+        detect_single_frame(frame, mtx, dist, save=False, show=True, show_delay=10)
+    
+    cv2.destroyAllWindows()
+    
